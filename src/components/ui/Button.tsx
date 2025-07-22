@@ -7,7 +7,7 @@ export const ButtonVariants = cva("transition-all", {
   variants: {
     variant: {
       primary: "bg-indigo-500 text-white font-medium",
-      secondary: " bg-blue-100 text-indigo-600 font-medium",
+      secondary: "bg-blue-100 text-indigo-600 font-medium",
     },
     size: {
       sm: "text-sm px-3 py-1",

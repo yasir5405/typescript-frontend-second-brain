@@ -10,7 +10,8 @@ import {
 } from "lucide-react";
 import type React from "react";
 import { Link } from "react-router-dom";
-import Button from "./Button";
+import Button from "./ui/Button";
+// import Button from "./Button";
 
 interface NavbarProps {
   name: string;
@@ -30,7 +31,7 @@ const navbarItems: NavbarProps[] = [
 
 const Navbar: React.FC = () => {
   return (
-    <nav className="w-full h-[50px] border border-black flex items-center justify-between px-28">
+    <nav className="w-full h-[50px] flex items-center justify-between px-28">
       <div className="flex items-center justify-center gap-8">
         {navbarItems.map(({ name, link, icon }, idx) => (
           <Link
@@ -48,11 +49,12 @@ const Navbar: React.FC = () => {
         <Button
           text="Login"
           className=" border-blue-500 text-sm font-semibold border-2"
+          variant="secondary"
         />
         <Button
           text="Get started"
-          className="flex-row-reverse text-white bg-blue-500 transition-all duration-200 ease-linear hover:bg-blue-600"
-          icon={<ArrowRightIcon size={20} />}
+          className=" text-white hover:bg-indigo-600 duration-200 ease-linear"
+          endIcon={<ArrowRightIcon size={20} />}
         />
       </div>
     </nav>
