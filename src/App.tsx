@@ -6,8 +6,8 @@ const App = () => {
   return (
     <>
       <BG />
-      <Navbar />
       <div className="w-full min-h-[100dvh] px-28">
+        <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="*" element={<PageNotFound />} />
