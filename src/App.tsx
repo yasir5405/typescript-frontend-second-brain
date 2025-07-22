@@ -1,8 +1,19 @@
+import { BG, Navbar } from "./components";
+import { Route, Routes } from "react-router-dom";
+import { Home, PageNotFound } from "./pages";
+
 const App = () => {
   return (
-    <div>
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
-    </div>
+    <>
+      <BG />
+      <Navbar />
+      <div className="w-full min-h-[100dvh] px-28">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="*" element={<PageNotFound />} />
+        </Routes>
+      </div>
+    </>
   );
 };
 
