@@ -6,7 +6,7 @@ const App = () => {
   return (
     <>
       <BG />
-      <div className="w-full min-h-[100dvh] px-28">
+      <div className="w-full min-h-[100dvh] px-2 md:px-28 relative">
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />

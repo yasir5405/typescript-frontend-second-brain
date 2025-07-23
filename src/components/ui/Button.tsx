@@ -11,7 +11,7 @@ export const ButtonVariants = cva("transition-all", {
     },
     size: {
       sm: "text-sm px-3 py-1",
-      md: "text-md px-4 py-2",
+      md: "text-md px-5 py-2",
       lg: "text-lg px-6 py-3",
     },
   },
@@ -56,7 +56,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         type={onClick ? "button" : "submit"}
         className={cn(
-          "flex items-center justify-center !cursor-pointer gap-2 rounded-md border",
+          "flex items-center justify-center !cursor-pointer gap-2 border rounded-full z-40",
           ButtonVariants({ variant, size }),
           loading &&
             "cursor-not-allowed border-neutral-200 bg-neutral-100 text-neutral-400 outline-none",

@@ -1,17 +1,8 @@
-import {
-  ArrowRightIcon,
-  BookOpenCheck,
-  CalendarDays,
-  Contact,
-  Home,
-  Info,
-  NotebookText,
-  Settings,
-} from "lucide-react";
+import { Brain, MenuIcon } from "lucide-react";
 import type React from "react";
 import { Link, NavLink } from "react-router-dom";
 import Button from "./ui/Button";
-// import Button from "./Button";
+import { useEffect, useState } from "react";
 
 interface NavbarProps {
   name: string;
@@ -20,25 +11,54 @@ interface NavbarProps {
 }
 
 const navbarItems: NavbarProps[] = [
-  { name: "Home", link: "/", icon: <Home size={17} /> },
-  { name: "About", link: "/about", icon: <Info size={17} /> },
-  { name: "Notes", link: "/notes", icon: <NotebookText size={17} /> },
-  { name: "Tasks", link: "/tasks", icon: <BookOpenCheck size={17} /> },
-  { name: "Calendar", link: "/calendar", icon: <CalendarDays size={17} /> },
-  { name: "Settings", link: "/settings", icon: <Settings size={17} /> },
-  { name: "Contact", link: "/contact", icon: <Contact size={17} /> },
+  { name: "Pricing", link: "/pricing" },
+  { name: "Notes", link: "/notes" },
+  { name: "Contact", link: "/contact" },
 ];
 
 const Navbar: React.FC = () => {
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 10) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    // console.log(isScrolled);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  });
+
   return (
-    <nav className="w-full h-[50px] flex items-center justify-between">
+    <nav
+      className={`sticky w-full top-3 md:w-full h-[50px] md:h-[70px] flex items-center justify-between rounded-full px-3 mt-3 z-50 transition-all duration-200 ease-linear border  ${
+        isScrolled
+          ? "bg-gradient-to-b from-slate-50 to-indigo-100 border-gray-300"
+          : "bg-transparent border-transparent"
+      }`}
+    >
       <div className="flex items-center justify-center gap-8">
+        <Link
+          to={"/"}
+          className="text-base md:text-xl font-semibold flex items-center justify-center gap-1 text-[#4f46e5]"
+        >
+          <Brain color="#4f46e5" /> Memora
+        </Link>
+
         {navbarItems.map(({ name, link, icon }, idx) => (
           <NavLink
             className={({ isActive }) =>
-              `flex items-center justify-center gap-1 text-sm font-medium ${
-                isActive ? "text-indigo-600" : ""
-              }`
+              `hidden md:flex items-center justify-center gap-1 text-sm font-medium  p-2 rounded-lg transition-all duration-100 ease-linear ${
+                isActive ? "text-indigo-600" : "text-zinc-600"
+              } ${isScrolled ? "hover:bg-white" : "hover:bg-gray-200"}`
             }
             key={idx}
             to={link}
@@ -48,8 +68,11 @@ const Navbar: React.FC = () => {
         ))}
       </div>
 
+      {/* MenuButton for mobile navBar */}
+      <MenuIcon className="block md:hidden" />
+
       {/* Login */}
-      <div className="flex items-center justify-center gap-7">
+      <div className="hidden md:flex items-center justify-center gap-7">
         <Link to={"/login"}>
           <Button
             text="Login"
@@ -59,9 +82,9 @@ const Navbar: React.FC = () => {
         </Link>
         <Link to={"/signup"}>
           <Button
-            text="Get started"
+            text="Sign up"
             className=" text-white hover:bg-indigo-600 duration-200 ease-linear"
-            endIcon={<ArrowRightIcon size={20} />}
+            // endIcon={<ArrowRightIcon size={20} />}
           />
         </Link>
       </div>
