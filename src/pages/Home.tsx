@@ -19,25 +19,13 @@ const Home = () => {
           <div className="w-full flex items-center justify-center mt-8 gap-4">
             <Button
               text="Get started"
-              className="hover:bg-indigo-600 duration-200 ease-linear hidden md:flex"
-            />
-            <Button
-              text="Get started"
-              className="hover:bg-indigo-600 duration-200 ease-linear md:hidden"
-              size="sm"
+              className="hover:bg-indigo-600 duration-200 ease-linear"
             />
             <Button
               text="Contact us"
               variant="secondary"
-              className="border-2 border-indigo-500 hidden md:flex"
+              className="border-2 border-indigo-500"
               endIcon={<ArrowRight size={16} />}
-            />
-            <Button
-              text="Contact us"
-              variant="secondary"
-              className="border-2 border-indigo-500 flex md:hidden"
-              endIcon={<ArrowRight size={16} />}
-              size="sm"
             />
           </div>
         </BackgroundLines>
