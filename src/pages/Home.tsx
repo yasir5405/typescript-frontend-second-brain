@@ -33,7 +33,7 @@ const Home = () => {
 
       {/* Hero image */}
       <div className="w-full rounded-xl overflow-hidden p-5 border-2 bg-gray-200 relative">
-        <img className="rounded-2xl" src="/src/assets/header.webp" alt="" />
+        <img className="rounded-2xl" src="/header.webp" alt="" />
       </div>
     </>
   );
