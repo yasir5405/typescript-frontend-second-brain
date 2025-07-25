@@ -65,13 +65,13 @@ const Login = () => {
       setIsLoading(true);
       setError("");
       const res = await api.post("/login", data);
-      console.log(res.data);
+      // console.log(res.data);
       if (res.data.status === true) {
         localStorage.setItem("token", res.data.token);
         navigate("/dashboard");
       }
     } catch (error: any) {
-      console.log(error.response.data);
+      // console.log(error.response.data);
       if (error.response && error.response.data) {
         if (error.response.data.status === false) {
           setError(error.response.data.message);
