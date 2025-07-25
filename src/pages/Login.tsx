@@ -137,19 +137,28 @@ const Login = () => {
               )}
             </div>
 
-            <Link to={"/forgot-password"} className="text-sm text-neutral-600">
+            <Link to={"/forgot-password"} className="text-sm text-neutral-500">
               Forgot password?
             </Link>
 
             <Button text="Login" className="w-full" />
 
-            <p className="text-sm text-neutral-700 text-center">
+            <p className="text-sm text-neutral-600 text-center">
               Don't have an account?{" "}
               <Link to={"/signup"} className="text-black">
                 Sign up
               </Link>
             </p>
           </form>
+
+          {/* BorderDiv */}
+          <div className="w-full flex items-center gap-2 py-2">
+            <div className="h-[0.5px] flex-1 bg-neutral-400"></div>
+            <p className="text-neutral-600 text-sm">Or continue with</p>
+            <div className="h-[0.5px] flex-1 w-full bg-neutral-400"></div>
+          </div>
+
+          <Button text="Google" className="w-full" />
         </div>
       </main>
 
