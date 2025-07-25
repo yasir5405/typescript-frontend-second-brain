@@ -1,9 +1,10 @@
 import { Brain, Eye, EyeClosed } from "lucide-react";
 import { AnimatedTooltip } from "../components/ui/animated-tooltip";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { Button } from "../components";
 import { useState } from "react";
+import api from "../api/api";
 
 const Login = () => {
   const people = [
@@ -53,10 +54,34 @@ const Login = () => {
     username: string;
     password: string;
   };
-  const { register, handleSubmit } = useForm<FormValues>();
 
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
-    console.log(data);
+  const { register, handleSubmit } = useForm<FormValues>();
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
+    try {
+      setIsLoading(true);
+      setError("");
+      const res = await api.post("/login", data);
+      console.log(res.data);
+      if (res.data.status === true) {
+        localStorage.setItem("token", res.data.token);
+        navigate("/dashboard");
+      }
+    } catch (error: any) {
+      console.log(error.response.data);
+      if (error.response && error.response.data) {
+        if (error.response.data.status === false) {
+          setError(error.response.data.message);
+        }
+      } else {
+        setError("An unexpected error occurred.");
+      }
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const [showPassword, setShowPassword] = useState(false);
@@ -104,6 +129,7 @@ const Login = () => {
               <input
                 id="username"
                 type="text"
+                required
                 placeholder="Enter your username"
                 className="py-2 px-2 border rounded-md shadow-md text-black placeholder:text-gray-400 focus:ring-2 focus:ring-neutral-400 focus:outline-none sm:text-sm sm:leading-6"
                 {...register("username")}
@@ -120,6 +146,7 @@ const Login = () => {
               </label>
               <input
                 id="password"
+                required
                 type={showPassword ? "text" : "password"}
                 placeholder="••••••••"
                 className="py-2 px-2 border rounded-md shadow-md text-black placeholder:text-gray-400 focus:ring-2 focus:ring-neutral-400 focus:outline-none sm:text-sm sm:leading-6 "
@@ -140,11 +167,15 @@ const Login = () => {
               )}
             </div>
 
+            {error && (
+              <p className="text-sm md:text-base text-red-600">{error}</p>
+            )}
+
             <Link to={"/forgot-password"} className="text-sm text-neutral-500">
               Forgot password?
             </Link>
 
-            <Button text="Login" className="w-full" />
+            <Button loading={isLoading} text="Login" className="w-full" />
 
             <p className="text-sm text-neutral-600 text-center">
               Don't have an account?{" "}

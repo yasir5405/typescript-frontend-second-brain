@@ -1,12 +1,13 @@
 import { BG, Navbar } from "./components";
 import { Route, Routes, useLocation } from "react-router-dom";
 import { Home, Login, PageNotFound, Signup } from "./pages";
+import Dashboard from "./pages/Dashboard";
 
 const App = () => {
   const location = useLocation();
 
   const pathname = location.pathname;
-  const hideNavBar = ["/login", "/signup"];
+  const hideNavBar = ["/login", "/signup", "/dashboard"];
 
   const hideNav = hideNavBar.some((path) => pathname.includes(path));
   return (
@@ -18,6 +19,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </div>
