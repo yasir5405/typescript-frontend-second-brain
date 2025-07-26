@@ -1,54 +1,13 @@
 import { Brain, Eye, EyeClosed } from "lucide-react";
 import { AnimatedTooltip } from "../components/ui/animated-tooltip";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { Button } from "../components";
 import { useState } from "react";
+import { people } from "../data";
+import api from "../api/api";
 
 const Signup = () => {
-  const people = [
-    {
-      id: 1,
-      name: "Yasir Naseem",
-      designation: "Software Engineer",
-      image: "/logintestimonial.jpeg",
-    },
-    {
-      id: 2,
-      name: "Arvin",
-      designation: "Product Manager",
-      image: "logintestimonial2.jpeg",
-    },
-    {
-      id: 3,
-      name: "Jane Smith",
-      designation: "Data Scientist",
-      image:
-        "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8YXZhdGFyfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60",
-    },
-    {
-      id: 4,
-      name: "Emily Davis",
-      designation: "UX Designer",
-      image:
-        "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGF2YXRhcnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60",
-    },
-    {
-      id: 5,
-      name: "Tyler Durden",
-      designation: "Soap Developer",
-      image:
-        "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3540&q=80",
-    },
-    {
-      id: 6,
-      name: "Dora",
-      designation: "The Explorer",
-      image:
-        "https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3534&q=80",
-    },
-  ];
-
   type FormValues = {
     name: string;
     username: string;
@@ -57,11 +16,43 @@ const Signup = () => {
   };
   const { register, handleSubmit } = useForm<FormValues>();
 
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
-    console.log(data);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+
+  // Navigate variable from react-router-dom
+  const navigate = useNavigate();
+
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
+    setIsLoading(true);
+    setSuccessMessage("");
+    setError("");
+    try {
+      const res = await api.post("/signup", data);
+      // console.log(res.data);
+      if (res.data.status === true) {
+        setSuccessMessage(res.data.message);
+        setTimeout(() => {
+          navigate("/login");
+        }, 2000);
+      }
+    } catch (error: any) {
+      if (error.response && error.response.data) {
+        if (error.response.data.status === false) {
+          setError(error.response.data.message);
+        }
+      } else {
+        setError("An unexpected error occurred.");
+      }
+      // console.log(error.response.data.message);
+    } finally {
+      setIsLoading(false);
+    }
+    // console.log(data);
   };
 
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   return (
     <div
@@ -173,27 +164,37 @@ const Signup = () => {
               </label>
               <input
                 id="confirmPassword"
-                type={showPassword ? "text" : "password"}
+                type={showConfirmPassword ? "text" : "password"}
                 placeholder="••••••••"
                 className="py-2 px-2 border rounded-md shadow-md text-black placeholder:text-gray-400 focus:ring-2 focus:ring-neutral-400 focus:outline-none sm:text-sm sm:leading-6 "
                 {...register("confirmPassword")}
               />
-              {showPassword ? (
+              {showConfirmPassword ? (
                 <EyeClosed
                   className="absolute right-3 bottom-3 cursor-pointer text-gray-500"
                   size={18}
-                  onClick={() => setShowPassword((prev) => !prev)}
+                  onClick={() => setShowConfirmPassword((prev) => !prev)}
                 />
               ) : (
                 <Eye
                   className="absolute right-3 bottom-3 cursor-pointer text-gray-500"
                   size={18}
-                  onClick={() => setShowPassword((prev) => !prev)}
+                  onClick={() => setShowConfirmPassword((prev) => !prev)}
                 />
               )}
             </div>
 
-            <Button text="Login" className="w-full" />
+            {error && (
+              <p className="text-sm md:text-base text-red-600">{error}</p>
+            )}
+
+            {successMessage && (
+              <p className="text-sm md:text-base text-green-600">
+                {successMessage}
+              </p>
+            )}
+
+            <Button loading={isLoading} text="Sign up" className="w-full" />
 
             <p className="text-sm text-neutral-600 text-center">
               Already have an account?{" "}
