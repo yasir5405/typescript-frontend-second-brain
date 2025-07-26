@@ -50,7 +50,7 @@ const Login = () => {
       style={{ fontFamily: "Geist Sans, sans-serif " }}
     >
       {/* Left Div/Form */}
-      <main className="h-full w-full md:w-[50%] flex flex-col md:pl-10 md:pr-44 md:py-8 py-6 px-3">
+      <main className="h-full w-full lg:w-[50%] flex flex-col md:pl-10 lg:pr-44 md:py-8 py-6 px-3">
         <div className="h-full w-full flex flex-col gap-1 md:gap-3">
           {/* Logo Div */}
           <div className="w-full py-5 gap-5 flex flex-col justify-between items-start">
@@ -180,7 +180,7 @@ const Login = () => {
       </main>
 
       {/* Right Div */}
-      <div className="h-full w-[50%] hidden md:flex flex-col items-center justify-center gap-7 overflow-hidden relative">
+      <div className="h-full w-[50%] hidden lg:flex flex-col items-center justify-center gap-7 overflow-hidden relative">
         {/* First */}
         <svg
           width="1595"
