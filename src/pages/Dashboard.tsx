@@ -32,7 +32,7 @@ const Dashboard = () => {
     };
 
     fetchUserDetails();
-  });
+  }, [dispatch, navigate]);
 
   return (
     <div className="w-full h-svh min-h-svh flex">

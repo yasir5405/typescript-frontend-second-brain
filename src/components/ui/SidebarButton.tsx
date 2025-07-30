@@ -16,8 +16,8 @@ const SidebarButton: React.FC<SidebarButtonProps> = ({
     <NavLink
       to={`/dashboard${url}`}
       className={({ isActive }) =>
-        `w-full py-3 flex px-4 gap-3 items-center text-zinc-500 hover:bg-white ${
-          isActive ? "text-blue-500" : ""
+        `w-full py-3 flex px-4 gap-3 items-center  hover:bg-white ${
+          isActive ? "text-blue-500" : "text-zinc-500"
         }`
       }
     >
