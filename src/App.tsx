@@ -1,6 +1,17 @@
 import { BG, Navbar } from "./components";
 import { Route, Routes, useLocation } from "react-router-dom";
-import { Home, Login, PageNotFound, Signup } from "./pages";
+import {
+  DashboardHome,
+  Home,
+  Links,
+  Login,
+  Notes,
+  PageNotFound,
+  Signup,
+  Tags,
+  Tweets,
+  Videos,
+} from "./pages";
 import Dashboard from "./pages/Dashboard";
 
 const App = () => {
@@ -10,16 +21,29 @@ const App = () => {
   const hideNavBar = ["/login", "/signup", "/dashboard"];
 
   const hideNav = hideNavBar.some((path) => pathname.includes(path));
+  const isDashboard = location.pathname.startsWith("/dashboard");
   return (
     <>
       <BG />
-      <div className="w-full min-h-[100dvh] px-2 md:px-28 relative">
+      <div
+        className={`w-full min-h-[100dvh]  relative ${
+          isDashboard ? "" : "px-2 md:px-28"
+        }`}
+        style={{ fontFamily: "Geist Sans, sans-serif " }}
+      >
         {!hideNav && <Navbar />}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard" element={<Dashboard />}>
+            <Route index element={<DashboardHome />} />
+            <Route path="tweets" element={<Tweets />} />
+            <Route path="videos" element={<Videos />} />
+            <Route path="notes" element={<Notes />} />
+            <Route path="links" element={<Links />} />
+            <Route path="tags" element={<Tags />} />
+          </Route>
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </div>

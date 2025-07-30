@@ -26,6 +26,7 @@ const Login = () => {
       // console.log(res.data);
       if (res.data.status === true) {
         localStorage.setItem("token", res.data.token);
+        // console.log(res.data);
         navigate("/dashboard");
       }
     } catch (error: any) {

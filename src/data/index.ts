@@ -1,3 +1,11 @@
+import {
+  Hash,
+  Link,
+  type LucideIcon,
+  Notebook,
+  Twitter,
+  Video,
+} from "lucide-react";
 export interface peopleInterface {
   id: number;
   name: string;
@@ -44,5 +52,43 @@ export const people: peopleInterface[] = [
     designation: "The Explorer",
     image:
       "https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3534&q=80",
+  },
+];
+export interface SidebarButtonInterface {
+  id: number;
+  icon: LucideIcon;
+  text: string;
+  url: string;
+}
+export const SidebarButtons: SidebarButtonInterface[] = [
+  {
+    id: 1,
+    icon: Twitter,
+    text: "Tweets",
+    url: "/tweets",
+  },
+  {
+    id: 2,
+    icon: Video,
+    text: "Videos",
+    url: "/videos",
+  },
+  {
+    id: 3,
+    icon: Notebook,
+    text: "Notes",
+    url: "/notes",
+  },
+  {
+    id: 4,
+    icon: Link,
+    text: "Links",
+    url: "/links",
+  },
+  {
+    id: 5,
+    icon: Hash,
+    text: "Tags",
+    url: "/tags",
   },
 ];
