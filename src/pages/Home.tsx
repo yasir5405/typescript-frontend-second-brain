@@ -10,7 +10,7 @@ const Home = () => {
       <div className="h-[60vh] md:h-[79dvh] w-full flex items-center justify-center relative">
         {/* Hero Section */}
         <BackgroundLines className="flex items-center justify-center w-full flex-col px-4 bg-white md:h-full">
-          <h2 className="bg-clip-text text-transparent text-center bg-gradient-to-b from-indigo-900 to-indigo-700 dark:from-indigo-600 dark:to-gray-200/20 md:dark:to-gray-200 text-3xl md:text-4xl lg:text-7xl font-sans py-2 md:py-10 relative z-20 font-bold tracking-tight mb-4 md:mb-0">
+          <h2 className="bg-clip-text text-transparent text-center bg-gradient-to-b from-blue-700 to-blue-300 dark:from-blue-500 dark:to-gray-100 md:dark:to-gray-200 text-2xl md:text-4xl lg:text-7xl font-sans py-2 md:py-10 relative z-20 font-bold tracking-tight mb-4 md:mb-0">
             Your AI-Powered Second Brain, <br /> for Everything You Save.
           </h2>
           <p className="max-w-xl mx-auto text-sm md:text-lg  text-center">

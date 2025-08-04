@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import api from "../api/api";
 import { login, logout } from "../store/authSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { Brain, LogOut, User } from "lucide-react";
+import { Brain, LogOut } from "lucide-react";
 import SidebarButton from "../components/ui/SidebarButton";
 import { SidebarButtons, type SidebarButtonInterface } from "../data";
 import { Button } from "@/components";
@@ -24,7 +24,7 @@ const Dashboard = () => {
     const fetchUserDetails = async () => {
       try {
         const res = await api.get("/me");
-        // console.log(res.data);
+        // console.log(res.data.user);
         dispatch(login(res.data.user));
       } catch (error) {
         console.log(error);
@@ -57,19 +57,27 @@ const Dashboard = () => {
 
         <div className="w-full py-3 absolute flex items-center justify-between bottom-0 left-0 border px-2 rounded-md">
           <div className="flex h-full items-center gap-2">
-            <User
+            {/* <User
               className="rounded-full border border-black p-[2px]"
               size={35}
+            /> */}
+            <img
+              className="h-12 w-12 rounded-md"
+              src={userData?.profileImage || "default-user.png"}
+              alt=""
             />
             <div className="flex flex-col">
-              <p className="text-base font-semibold">{userData?.name}</p>
-              <p className="text-base">{userData?.username}</p>
+              <p className="text-sm font-semibold">{userData?.name}</p>
+              <p className="text-sm text-muted-foreground">
+                {userData?.username}
+              </p>
             </div>
           </div>
           <Button
             variant="destructive"
-            startIcon={<LogOut />}
+            startIcon={<LogOut size={16} />}
             onClick={logoutHandler}
+            className="py-2"
             size="sm"
           />
         </div>

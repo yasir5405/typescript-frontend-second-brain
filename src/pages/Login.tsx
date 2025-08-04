@@ -6,6 +6,7 @@ import { Button } from "../components";
 import { useState } from "react";
 import api from "../api/api";
 import { people } from "../data";
+import { useGoogleLogin, type CodeResponse } from "@react-oauth/google";
 
 const Login = () => {
   type FormValues = {
@@ -26,7 +27,8 @@ const Login = () => {
       // console.log(res.data);
       if (res.data.status === true) {
         localStorage.setItem("token", res.data.token);
-        // console.log(res.data);
+        console.log(res.data);
+        // dispatch(login(res.data));
         navigate("/dashboard");
       }
     } catch (error: any) {
@@ -44,6 +46,40 @@ const Login = () => {
   };
 
   const [showPassword, setShowPassword] = useState(false);
+
+  const googleResponse = async (
+    authResult: Omit<CodeResponse, "error" | "error_description" | "error_uri">
+  ) => {
+    try {
+      if (authResult["code"]) {
+        const code = authResult["code"];
+        const response = await api.get(`/auth/google?code=${code}`, {
+          withCredentials: true,
+        });
+        if (response.data.status) {
+          const token = response.data.token;
+          localStorage.setItem("token", token);
+          // dispatch();
+          navigate("/dashboard");
+        }
+      }
+    } catch (error: any) {
+      console.log("Google login failed. ", error);
+      setError(error.message || "Google login failed.");
+    }
+  };
+
+  const handleGoogleError = (
+    error: Pick<CodeResponse, "error" | "error_description" | "error_uri">
+  ) => {
+    console.error("Google login error:", error);
+  };
+
+  const googleLogin = useGoogleLogin({
+    onSuccess: googleResponse,
+    onError: handleGoogleError,
+    flow: "auth-code",
+  });
 
   return (
     <div
@@ -156,6 +192,10 @@ const Login = () => {
             text="Google"
             variant="secondary"
             className="w-full border-blue-500"
+            onClick={() => {
+              setIsLoading(true);
+              googleLogin();
+            }}
             startIcon={
               <svg
                 className="h-5 w-5"
