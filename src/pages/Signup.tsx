@@ -6,6 +6,7 @@ import { Button } from "../components";
 import { useState } from "react";
 import { people } from "../data";
 import api from "../api/api";
+import { useGoogleLogin, type CodeResponse } from "@react-oauth/google";
 
 const Signup = () => {
   type FormValues = {
@@ -53,6 +54,40 @@ const Signup = () => {
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const googleResponse = async (
+    authResult: Omit<CodeResponse, "error" | "error_description" | "error_uri">
+  ) => {
+    try {
+      if (authResult["code"]) {
+        const code = authResult["code"];
+        const response = await api.get(`/auth/google?code=${code}`, {
+          withCredentials: true,
+        });
+        if (response.data.status) {
+          const token = response.data.token;
+          localStorage.setItem("token", token);
+          // dispatch();
+          navigate("/dashboard");
+        }
+      }
+    } catch (error: any) {
+      console.log("Google login failed. ", error);
+      setError(error.message || "Google login failed.");
+    }
+  };
+
+  const handleGoogleError = (
+    error: Pick<CodeResponse, "error" | "error_description" | "error_uri">
+  ) => {
+    console.error("Google login error:", error);
+  };
+
+  const googleLogin = useGoogleLogin({
+    onSuccess: googleResponse,
+    onError: handleGoogleError,
+    flow: "auth-code",
+  });
 
   return (
     <div
@@ -216,6 +251,10 @@ const Signup = () => {
             text="Google"
             variant="secondary"
             className="w-full border-blue-500"
+            onClick={() => {
+              setIsLoading(true);
+              googleLogin();
+            }}
             startIcon={
               <svg
                 className="h-5 w-5"

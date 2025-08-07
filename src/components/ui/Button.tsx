@@ -6,7 +6,7 @@ import { Loader2Icon } from "lucide-react";
 export const ButtonVariants = cva("transition-all", {
   variants: {
     variant: {
-      primary: "bg-indigo-500 text-white",
+      primary: "bg-[#4f46e5] text-white",
       secondary: "bg-blue-100 text-indigo-600",
       destructive: "bg-[#9E4042] text-white",
     },
@@ -57,7 +57,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         type={onClick ? "button" : "submit"}
         className={cn(
-          "flex items-center justify-center !cursor-pointer gap-2 border rounded-full z-40 font-medium",
+          "flex items-center justify-center !cursor-pointer gap-2 rounded-full z-40 font-medium",
           ButtonVariants({ variant, size }),
           loading &&
             "cursor-not-allowed border-neutral-200 bg-neutral-100 text-neutral-400 outline-none",

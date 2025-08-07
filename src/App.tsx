@@ -22,9 +22,10 @@ const App = () => {
 
   const hideNav = hideNavBar.some((path) => pathname.includes(path));
   const isDashboard = location.pathname.startsWith("/dashboard");
+
   return (
     <>
-      <BG />
+      {!isDashboard && <BG />}
       <div
         className={`w-full min-h-[100dvh]  relative ${
           isDashboard ? "" : "px-2 md:px-28"

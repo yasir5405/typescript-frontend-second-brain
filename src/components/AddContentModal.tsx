@@ -23,7 +23,7 @@ const AddContentModal = () => {
           startIcon={<Plus />}
         />
       </AlertDialogTrigger>
-      <AlertDialogContent>
+      <AlertDialogContent className="bg-neutral-800 text-white border-none">
         <AlertDialogHeader>
           <AlertDialogTitle>Add content</AlertDialogTitle>
           <AlertDialogDescription>
