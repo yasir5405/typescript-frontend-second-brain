@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import api from "../api/api";
 import { login, logout } from "../store/authSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { Brain, ChevronsUpDown, MenuIcon, Share2 } from "lucide-react";
+import { Brain, ChevronsUpDown, Share2 } from "lucide-react";
 import SidebarButton from "../components/ui/SidebarButton";
 import { SidebarButtons, type SidebarButtonInterface } from "../data";
 import { AddContentModal, Button } from "@/components";
