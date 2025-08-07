@@ -105,7 +105,7 @@ const Dashboard = () => {
         initial={{ x: "-100%" }}
         animate={{ x: isOpen ? 0 : "-100%" }}
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
-        className="absolute md:hidden top-0 left-0 h-full w-60 bg-neutral-700 shadow-lg z-40 flex flex-col px-6 py-5"
+        className="absolute md:hidden top-0 left-0 h-full w-[280px] bg-neutral-700 shadow-lg z-40 flex flex-col px-6 py-5"
       >
         {/* Logo */}
         <Link
