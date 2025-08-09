@@ -20,14 +20,13 @@ const SidebarButton: React.FC<SidebarButtonProps> = ({
     <NavLink
       to={`/dashboard${url}`}
       className={({ isActive }) =>
-        `w-full py-1 flex px-4 gap-3 items-center  hover:bg-neutral-800 transition duration-150 ${
-          isActive ? "text-[#4f46e5]" : "text-zinc-500"
+        `w-full py-2 flex px-4 rounded-md gap-2 items-center hover:text-sky-500 transition duration-100 ease-linear ${isActive ? "text-sky-500 bg-neutral-800" : "text-[#a3a3a9]"
         } ${className}`
       }
       onClick={onClick}
     >
-      <Icon className="h-5 w-5" />
-      <p className="text-base font-medium">{text}</p>
+      <Icon className="h-4 w-4" />
+      <p className="text-sm tracking-wide font-medium">{text}</p>
     </NavLink>
   );
 };

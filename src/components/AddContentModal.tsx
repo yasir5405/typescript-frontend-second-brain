@@ -17,9 +17,10 @@ const AddContentModal = () => {
     <AlertDialog>
       <AlertDialogTrigger asChild>
         <Button
-          className="rounded-md"
+          className="rounded-md z-10"
           variant="primary"
           text="Add Content"
+          size="sm"
           startIcon={<Plus />}
         />
       </AlertDialogTrigger>
@@ -30,6 +31,9 @@ const AddContentModal = () => {
             Add any type of content you want.
           </AlertDialogDescription>
         </AlertDialogHeader>
+        <form>
+          <input type="" placeholder="Type" />
+        </form>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
           <AlertDialogAction>Upload Content</AlertDialogAction>
